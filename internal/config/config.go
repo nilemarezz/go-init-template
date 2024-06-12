@@ -1,14 +1,11 @@
 package config
 
 import (
-	"fmt"
-
 	"github.com/spf13/viper"
 )
 
 type Config struct {
 	Database DBConfig
-	Log      LogConfig
 	App      AppConfig
 }
 
@@ -21,18 +18,19 @@ type DBConfig struct {
 	SSLMode  string
 }
 
-type LogConfig struct {
-	Path string
-}
-
 type AppConfig struct {
-	Port string
+	Name string
 }
 
 func LoadConfig(env string) (Config, error) {
 	var cfg Config
 
-	viper.SetConfigName("config." + env)
+	if env == "" {
+		viper.SetConfigName("config" + env)
+	} else {
+		viper.SetConfigName("config." + env)
+	}
+
 	viper.AddConfigPath("./config")
 	viper.SetConfigType("yaml")
 
@@ -43,8 +41,6 @@ func LoadConfig(env string) (Config, error) {
 	if err := viper.Unmarshal(&cfg); err != nil {
 		return cfg, err
 	}
-
-	fmt.Println(cfg)
 
 	return cfg, nil
 }

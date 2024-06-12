@@ -1,0 +1,3 @@
+{"level":"info","time":"2024-06-12T15:42:38.637+0700","caller":"go-init-template/main.go:28","msg":"Start application with args... 20230101"}
+{"level":"info","time":"2024-06-12T15:42:38.637+0700","caller":"go-init-template/main.go:34","msg":"Config set to 'dev' env","config":{"Database":{"Host":"localhost","Port":5432,"User":"postgres","DBName":"postgres","Password":"mysecretpassword","SSLMode":"disable"},"App":{"Name":""}}}
+{"level":"info","time":"2024-06-12T15:42:38.654+0700","caller":"database/connection.go:39","msg":"Connect database success"}

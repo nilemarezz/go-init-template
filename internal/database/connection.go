@@ -2,12 +2,12 @@ package database
 
 import (
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
-	"github.com/nilemarezz/go-init-template/pkg/config"
+	"github.com/nilemarezz/go-init-template-batch/internal/config"
+	"github.com/nilemarezz/go-init-template-batch/internal/logger"
 )
 
 func ConnectDB(config *config.Config) (*sqlx.DB, error) {
@@ -24,19 +24,19 @@ func ConnectDB(config *config.Config) (*sqlx.DB, error) {
 	for attempt := 1; attempt <= maxRetryAttempts; attempt++ {
 		db, err = sqlx.Connect("postgres", dbURI)
 		if err != nil {
-			log.Printf("Attempt %d: Failed to connect to database: %v", attempt, err)
+			logger.Logger.Info(fmt.Sprintf("Attempt %d: Failed to connect to database: %v", attempt, err))
 			time.Sleep(retryInterval)
 			retryInterval *= 2 // exponential backoff
 			continue
 		}
 		if err := db.Ping(); err != nil {
-			log.Printf("Attempt %d: Failed to ping database: %v", attempt, err)
+			logger.Logger.Info(fmt.Sprintf("Attempt %d: Failed to connect to database: %v", attempt, err))
 			db.Close()
 			time.Sleep(retryInterval)
 			retryInterval *= 2 // exponential backoff
 			continue
 		}
-		log.Printf("Connected to database")
+		logger.Logger.Info("Connect database success")
 		return db, nil
 	}
 	return nil, err

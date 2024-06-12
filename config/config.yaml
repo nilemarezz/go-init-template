@@ -1,5 +1,5 @@
 database:
-  host: localhost-sit
+  host: localhost-prd
   port: 5432
   user: postgres
   dbname: postgres

@@ -1,0 +1,1 @@
+./build/bin/app -date=$1

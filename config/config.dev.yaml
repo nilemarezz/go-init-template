@@ -5,7 +5,3 @@ database:
   dbname: postgres
   password: mysecretpassword
   sslmode: disable
-log:
-  path: ./tmp/
-app:
-  port: 8080
